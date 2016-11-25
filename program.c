@@ -62,6 +62,56 @@ void main(){
 				system("cls");
 			}
 		}
+		
+		//Cadastrar notas
+		if(opt == 2){
+			system("cls");
+			//Valores temporários
+			int inputRA = 0;
+			
+			//Escreve RA aluno
+			printf("Digite o RA do aluno:");
+			scanf("%d",&inputRA);
+			
+			int posRA = checkIfExistRA(inputRA);
+			if(posRA != -1){
+				//Caso exista o RA
+				printf("\nNome do aluno:%s",aluno[posRA].nome);
+				float menNota = 10;
+				int menNotaPos = 0;
+				int i;
+				for(i = 0; i< 5 ; i = i+1){
+					if(i < 4){
+						//Computa as 4 notas
+						printf("\nInsira a nota %d:",i+1);
+						scanf("%f",&aluno[posRA].nota[i]);
+						if(menNota > aluno[posRA].nota[i]){
+							menNota = aluno[posRA].nota[i];
+							menNotaPos = i;
+						}
+					}else{
+						float sub;
+						printf("\nNota da prova substitutiva:");
+						scanf("%f",&sub);
+						if(sub>menNota){
+							//Atualiza a menor nota pela da SUB
+							aluno[posRA].nota[menNotaPos] = menNota;
+							printf("\nNota substitutiva sobrescreveu a nota da prova %d",menNotaPos+1);
+						}			
+					}
+				}
+				
+				//
+				printf("\nNotas cadastradas com sucesso!\n");
+				system("pause");
+				system("cls");				
+			}else{
+				//RA inexistente
+				printf("RA não cadastrado\n");
+				system("pause");
+				system("cls");
+			}
+		}
 	}
 		
 		
