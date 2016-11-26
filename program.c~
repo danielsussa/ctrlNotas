@@ -27,7 +27,6 @@ void main(){
 		printf("Digite um valor:");
 		scanf("%d",&opt);
 		
-		
 		//Cadastrar novo aluno
 		if(opt == 1){
 			system("cls");
@@ -113,36 +112,9 @@ void main(){
 				system("cls");
 			}
 		}
+	}
 		
-		//Calcula média
-		if(opt == 3){
-			int i = 0;
-			while(aluno[i].ra != 0){
-				aluno[i].media = (aluno[i].nota[0] * 1 + aluno[i].nota[1] * 2 + aluno[i].nota[2] * 3 + aluno[i].nota[3] * 4) / 10;
-				printf("\nAluno:%s || Média:%.2f\n",aluno[i].nome,aluno[i].media);
-				i = i + 1;
-			}
-			system("pause");
-			system("cls");							
-		}
-	}
-}
+		
 
-int checkNullRA(int ra){
-	if(ra == 0){
-		return 1;
-	}else{
-		return 0;
-	}
-}
-
-int checkIfExistRA(int ra){
-	int i;
-	for(i = 0; i<20 ; i = i+1){
-		if(aluno[i].ra == ra){
-			return i;
-		}
-	}
-	return -1;
 }
 
