@@ -14,22 +14,16 @@ struct Aluno aluno[20];
 void main(){
 	
 	setlocale(LC_ALL, "Portuguese");
-	int opt = 0;
+	int opt = 1;
 	
-	while(opt != -1){
-		
-		//Tela inicial com as opções
-		printf("Sistema de Cadastro de aluno e notas\n");
-		printf("1 - Cadastrar novo aluno\n");
-		printf("2 - Cadastrar nota\n");
-		printf("3 - Calcula Média\n");
-		printf("4 - Relatório de desempenho\n");
-		printf("Digite um valor:");
-		scanf("%d",&opt);
-		
-		//Cadastrar novo aluno
-		if(opt == 1){
-			system("cls");
+	
+	printf("Sistema de Cadastro de aluno e notas\n");
+	system("pause");
+	
+	
+	//Cadastrar novo aluno
+	while(opt == 1){
+		printf("\n::Etapa 1: Cadastro de aluno::\n");
 			//Verifica em qual registro deveremos escrever na memória
 			int i = 0;
 			
@@ -53,20 +47,31 @@ void main(){
 			if(checkIfExistRA(inputRA) == -1 && checkNullRA(inputRA) == 1){
 				//Se existir já um RA ou for nulo
 				printf("\nRA invalido ou já existente!\n");
-				system("pause");
-				system("cls");
+				opt += checkAnswer();
+				
+				
 			}else{
 				//Registra os valores
 				strcpy(aluno[i].nome,inputNome);
 				aluno[i].ra = inputRA;
 				printf("\nCadastro realizado com sucesso!\n");
-				system("pause");
-				system("cls");
+				opt += checkAnswer();
 			}
-		}
+	}
+	
+	while(opt ==2){
+		
+	}
+	
+	
+	while(opt != -1){
+		
+		
+		
+
 		
 		//Cadastrar notas
-		else if(opt == 2){
+		if(opt == 2){
 			system("cls");
 			//Valores temporários
 			int inputRA = 0;
@@ -116,7 +121,7 @@ void main(){
 		}
 		
 		//Calcula média
-		else if(opt == 3){
+		if(opt == 3){
 			int i = 0;
 			//Itera o struct aluno até o ultimo cadastro
 			while(aluno[i].ra != 0){
@@ -130,7 +135,7 @@ void main(){
 		}
 		
 		//Calcula o desempenho geral da classe
-		else if(opt == 4){
+		if(opt == 4){
 			int i = 0;
 			float total = 0;
 			while(aluno[i].ra != 0){
@@ -145,11 +150,17 @@ void main(){
 			system("pause");
 			system("cls");
 		}
-		
-		else{
-			system("cls");
-		}
 	}
+}
+
+int checkAnswer(){
+	char answer;
+	printf("Deseja cadastrar novo aluno? <s/n>");
+	if (scanf(" %c", &answer) == 1 && (answer == 'S' || answer == 's')){
+		return 0;
+    }
+    return 1;
+    
 }
 
 int checkNullRA(int ra){
