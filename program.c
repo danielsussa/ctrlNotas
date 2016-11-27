@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <conio.h>
-#include <stdbool.h>
 
 struct Aluno{
 	char *nome[50];
@@ -19,6 +17,8 @@ void main(){
 	int opt = 0;
 	
 	while(opt != -1){
+		
+		//Tela inicial com as opções
 		printf("Sistema de Cadastro de aluno e notas\n");
 		printf("1 - Cadastrar novo aluno\n");
 		printf("2 - Cadastrar nota\n");
@@ -27,12 +27,13 @@ void main(){
 		printf("Digite um valor:");
 		scanf("%d",&opt);
 		
-		
 		//Cadastrar novo aluno
 		if(opt == 1){
 			system("cls");
 			//Verifica em qual registro deveremos escrever na memória
 			int i = 0;
+			
+			//Itera o valor de i até um vetor vaziu
 			while(aluno[i].ra != 0){
 				i = i + 1;
 			}
@@ -65,7 +66,7 @@ void main(){
 		}
 		
 		//Cadastrar notas
-		if(opt == 2){
+		else if(opt == 2){
 			system("cls");
 			//Valores temporários
 			int inputRA = 0;
@@ -102,7 +103,7 @@ void main(){
 					}
 				}
 				
-				//
+				//Cadastro realizado com sucesso
 				printf("\nNotas cadastradas com sucesso!\n");
 				system("pause");
 				system("cls");				
@@ -115,15 +116,38 @@ void main(){
 		}
 		
 		//Calcula média
-		if(opt == 3){
+		else if(opt == 3){
 			int i = 0;
+			//Itera o struct aluno até o ultimo cadastro
 			while(aluno[i].ra != 0){
+				//Calcula a média ponderada
 				aluno[i].media = (aluno[i].nota[0] * 1 + aluno[i].nota[1] * 2 + aluno[i].nota[2] * 3 + aluno[i].nota[3] * 4) / 10;
 				printf("\nAluno:%s || Média:%.2f\n",aluno[i].nome,aluno[i].media);
 				i = i + 1;
 			}
 			system("pause");
 			system("cls");							
+		}
+		
+		//Calcula o desempenho geral da classe
+		else if(opt == 4){
+			int i = 0;
+			float total = 0;
+			while(aluno[i].ra != 0){
+				//Soma a média de cada alune
+				total += aluno[i].media;
+				i = i + 1;
+			}
+			//divide a média total pela quantidade de alunos
+			total = total / i;
+			printf("\nTotal de alunos na classe: %d",i);
+			printf("\nMédia total da classe: %.2f\n",total);
+			system("pause");
+			system("cls");
+		}
+		
+		else{
+			system("cls");
 		}
 	}
 }
