@@ -7,6 +7,7 @@ struct Aluno{
 	int ra;
 	float nota[4];
 	float media;
+	int status; //Status (-) Nota não computada | (1) Nota computada | (2) Reprovado | (3) Aprovado
 };
 
 struct Aluno aluno[20];
@@ -102,7 +103,7 @@ void main(){
 						}			
 					}
 				}
-				
+				aluno[posRA].status = 1;
 				//Cadastro realizado com sucesso
 				printf("\nNotas cadastradas com sucesso!\n");
 				system("pause");
@@ -120,11 +121,25 @@ void main(){
 			int i = 0;
 			//Itera o struct aluno até o ultimo cadastro
 			while(aluno[i].ra != 0){
-				//Calcula a média ponderada
-				aluno[i].media = (aluno[i].nota[0] * 1 + aluno[i].nota[1] * 2 + aluno[i].nota[2] * 3 + aluno[i].nota[3] * 4) / 10;
-				printf("\nAluno:%s || Média:%.2f\n",aluno[i].nome,aluno[i].media);
+				//Não calcula de alunos sem nota cadastrada
+				if(aluno[i].status != 0){
+					//Calcula a média ponderada
+					aluno[i].media = (aluno[i].nota[0] * 1 + aluno[i].nota[1] * 2 + aluno[i].nota[2] * 3 + aluno[i].nota[3] * 4) / 10;
+					if(aluno[i].media > 5){
+						//Aluno passou de ano
+						aluno[i].status = 3;
+						printf("\nAluno:%s || Média:%.2f",aluno[i].nome,aluno[i].media);
+						printf(" - Aprovado\n");
+					}else{
+						//Aluno reprovou
+						aluno[i].status = 2;
+						printf("\nAluno:%s || Média:%.2f",aluno[i].nome,aluno[i].media);
+						printf(" - Reprovado\n");
+					}
+				}
 				i = i + 1;
 			}
+			printf("\n");
 			system("pause");
 			system("cls");							
 		}
@@ -133,7 +148,16 @@ void main(){
 		else if(opt == 4){
 			int i = 0;
 			float total = 0;
+
 			while(aluno[i].ra != 0){
+				//Exibe status do aluno
+				if(aluno[i].status == 3){
+					printf("\nAluno:%s || Média:%.2f",aluno[i].nome,aluno[i].media);
+					printf(" - Aprovado\n");
+				}else{
+					printf("\nAluno:%s || Média:%.2f",aluno[i].nome,aluno[i].media);
+					printf(" - Reprovado\n");
+				}
 				//Soma a média de cada alune
 				total += aluno[i].media;
 				i = i + 1;
@@ -142,6 +166,7 @@ void main(){
 			total = total / i;
 			printf("\nTotal de alunos na classe: %d",i);
 			printf("\nMédia total da classe: %.2f\n",total);
+			printf("\n");
 			system("pause");
 			system("cls");
 		}
